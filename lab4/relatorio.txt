@@ -1,0 +1,70 @@
+Sistemas de Computação - Laboratório 4 - Hugo Grochau - 1310486
+
+
+1) 
+Elabore um programa que seja capaz de mandar executar dois outros programas
+conhecidos (da Shell, por exemplo: ls, grep, cat, ou outros). Execute o
+programa e relate o que aconteceu.
+
+======== PROGRAMA ========
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <wait.h>
+
+int main (void) { 
+	pid_t pid;
+
+	if ((pid = fork()) < 0) {
+		fprintf(stderr, "Erro a criar filho\n");
+		exit(-1);
+	}
+
+	if (pid == 0)  { // filho
+		execl("/bin/echo", "/bin/echo", "Codigo deste programa:", NULL);
+	} else { // pai
+		execl("/bin/cat", "/bin/cat", "exec.c", NULL);
+	}
+	return 0;
+}
+
+======== OUTPUT ========
+[c1310486@pirai lab4]$ ./exec
+Codigo deste programa:
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <wait.h>
+
+int main (void) { 
+	pid_t pid;
+
+	if ((pid = fork()) < 0) {
+		fprintf(stderr, "Erro a criar filho\n");
+		exit(-1);
+	}
+
+	if (pid == 0)  { // filho
+		execl("/bin/echo", "/bin/echo", "Codigo deste programa:", NULL);
+	} else { // pai
+		execl("/bin/cat", "/bin/cat", "exec.c", NULL);
+	}
+	return 0;
+}
+
+======== CONCLUSÃO ========
+O processo pai vira um process de "echo" que imprime o "Codigo deste programa"
+e o processo filho vira um processo de "cat" que imprime o código.
+
+2)
+Elabore um programa CPU bound que não termine (loop de cálculos e mensagens eventuais no vídeo).
+Elabore um programa I/O bound que não termine (loop de msgs no vídeo).
+Elabore um programa que seja capaz de mandar executar os programas indicados anteriormente e que simule o compartilhamento da CPU entre os dois programas, interrompendo ora um, ora outro. Execute os programas e relate o que aconteceu.
+
+======== PROGRAMA ========
+
+
+======== OUTPUT ========
+
+
+======== CONCLUSÃO ========
