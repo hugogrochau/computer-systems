@@ -1,0 +1,99 @@
+Sistemas de Computação - Laboratório 5 - Hugo Grochau - 1310486
+
+
+3) 
+Exercício: Faça um programa para criar dois processos que se comunicam via pipe. O Pai lê do pipe enquanto o filho escreve no pipe. Exiba o resultado do que foi escrito e lido.
+
+======== PROGRAMA ========
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+    int status;
+    const char text[] = "Hello World";
+    char dados[12];
+    int fd[2];
+
+    if (pipe(fd) < 0) {
+        puts("Erro ao abrir pipes");
+        exit(-1);
+    }
+
+    if (fork() != 0) {
+        wait(&status);
+        close(fd[1]);
+        read(fd[0], dados, strlen(text) * sizeof(char));
+        printf("Resultado = %s\n", dados);
+    } else {
+        close(fd[0]);
+        write(fd[1], text, strlen(text) * sizeof(char));
+        exit(0);
+    }
+    return 0;
+}
+
+======== OUTPUT ========
+Resultado = Hello World
+
+
+4)
+Exercício: Faça um programa para redirecionar a entrada e a saída, lendo os dados de um arquivo e gerando a saída em outro.
+
+======== PROGRAMA ========
+#include <stdio.h>
+
+int main(void) {
+	char c;
+	while ((c = fgetc(stdin)) != EOF)
+		fputc(c, stdout);
+	return 0;
+}
+
+======== OUTPUT ========
+lab5:master* λ echo "foo" | ./4
+foo
+
+
+5) Exercício: Faça um programa para criar um pipe e executar dois processos que são utilitários do Unix que se comuniquem através do pipe criado (a shell faz isso).
+======== PROGRAMA ========
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+    int status;
+    int fd[2];
+
+    if (pipe(fd) < 0) {
+        puts("Erro ao abrir pipes");
+        exit(-1);
+    }
+
+    if (fork() != 0) { // pai
+        wait(&status);
+        close(0); // fecha stdin
+        dup(fd[0]); // bota fd[0] como stdin
+        close(fd[1]); // fecha fd[1] (saida)
+        execlp("grep", "grep", "4", NULL); // executa grep com fd[0] como stdin
+    } else {
+    	close(1); // fecha stdout
+    	dup(fd[1]); // bota fd[1] como stdout
+        close(fd[0]); // fecha fd[0] (entrada)
+        execlp("ls", "ls", NULL); // executa tree com f[1] como stdout
+        exit(0);
+    }
+    return 0;
+}
+
+======== OUTPUT ========
+lab5:master* λ ./5
+4
+4.c
+Laboratorio 5 Sistemas de Computacao 2014_2.odt
