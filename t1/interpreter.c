@@ -1,22 +1,20 @@
-#include "program.h"
+#include <stdlib.h>
 #include "interpreter.h"
-#include <stdio.h>
-#include <error.h>
 
-void interpret(Scheduler schedule, int type) {
+void interpret(Scheduler schedule, int type, FILE *in) {
     char nome[255];
     int prio;
-    float time;
+    double time;
 
-    while (!feof(stdin)) {
-        scanf(" %s %s ", NULL, nome);
+    while (!feof(in)) {
+        fscanf(in, " %*s %s ", nome);
         switch (type) {
             case DIN:
-                scanf("%d", &prio);
+                fscanf(in, "prioridade=%d", &prio);
                 schedule(nome, prio, -1);
                 break;
             case SJF:
-                scanf("%lf", &time);
+                fscanf(in, "tempoexec=%lf", &time);
                 schedule(nome, -1, time);
                 break;
             case RR:

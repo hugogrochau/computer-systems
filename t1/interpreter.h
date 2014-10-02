@@ -2,5 +2,8 @@
 #define DIN 1
 #define RR 2
 
-void interpret (Program *programs);
-typedef void (*schedule)(char *name, int prio, float time) Scheduler;
+#include <stdio.h>
+
+
+typedef void (*Scheduler)(char *name, int prio, double time);
+void interpret (Scheduler schedule, int type, FILE* in);
