@@ -1,2 +1,3 @@
 exec ./foo
 exec ./bar
+exec ./baz

@@ -1,0 +1,3 @@
+exec ./bar tempoexec=500
+exec ./foo tempoexec=200
+exec ./baz tempoexec=1000

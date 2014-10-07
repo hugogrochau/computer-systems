@@ -1,6 +1,5 @@
 #!/bin/sh
 
-while :
-do
-	echo "bar"
-done
+echo "bar1"
+sleep 5
+echo "bar2"

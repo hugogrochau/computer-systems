@@ -1,0 +1,3 @@
+exec ./bar prioridade=2
+exec ./foo prioridade=7
+exec ./baz prioridade=4

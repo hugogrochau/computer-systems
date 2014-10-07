@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "baz1"
+sleep 1
+echo "baz2"
