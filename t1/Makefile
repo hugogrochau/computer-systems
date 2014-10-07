@@ -11,7 +11,7 @@ main: rr
 	@echo "** Compiled Everything **"
 
 rr:
-	$(call compile, escalonador_rr.c, escalonador_rr)
+	$(call debug, escalonador_rr.c, escalonador_rr)
 	@echo "** Compiled  escalonador_rr**"
 
 clean:

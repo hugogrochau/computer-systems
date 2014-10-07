@@ -1,2 +1,2 @@
-exec ls
-exec tree
+exec ./foo
+exec ./bar
