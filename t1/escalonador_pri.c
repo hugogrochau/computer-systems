@@ -32,7 +32,6 @@ int main(void) {
     int num_process = interpret(p_pool, PRI, stdin);
     int current = -1;
 
-
     qsort(p_pool, num_process, sizeof(Process), compare);
 
     while (1) {
@@ -42,7 +41,8 @@ int main(void) {
             break;
 
         if (num_process > 1 && current >= 0 && current != p_pool[0].pid) {
-            printf("Parando o processo de PID: %d \n",  current);
+
+            printf("Parando o processo de PID: %d \n", current);
 
             kill(current, SIGSTOP);
         }

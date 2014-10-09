@@ -13,21 +13,21 @@ int run(char *nome) {
     return pid;
 }
 
-int interpret(Process *p_pool, int type, FILE *in) {
+int interpret(Process *p_pool, int type) {
     char nome[255];
     Process temp;
     int num_process = 0;
 
-    while (!feof(in)) {
-        fscanf(in, " %*s %s ", nome);
+    while (!feof(stdin)) {
+        fscanf(stdin, " %*s %s ", nome);
         switch (type) {
             case PRI:
-                fscanf(in, "prioridade=%d", &temp.priority);
+                fscanf(stdin, "prioridade=%d", &temp.priority);
                 temp.pid = run(nome);
                 p_pool[num_process] = temp;
                 break;
             case SJF:
-                fscanf(in, "tempoexec=%lf", &temp.time);
+                fscanf(stdin, "tempoexec=%lf", &temp.time);
                 temp.pid = run(nome);
                 p_pool[num_process] = temp;
                 break;

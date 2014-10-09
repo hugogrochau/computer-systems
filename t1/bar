@@ -1,5 +1,5 @@
 #!/bin/sh
 
 echo "bar1"
-sleep 5
+sleep 2
 echo "bar2"

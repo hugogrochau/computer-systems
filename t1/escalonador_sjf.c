@@ -18,6 +18,7 @@ int main(void) {
     int i, status;
 	int output = open("output.txt", O_RDWR | O_CREAT, 0666);
 	int input = open("input.txt",  O_RDWR | O_CREAT, 0666);
+    int num_process;
 
 	close(0);
 	dup(input);
@@ -25,7 +26,7 @@ int main(void) {
 	close(1);
 	dup(output);
 
-    int num_process = interpret(p_pool, SJF);
+    num_process = interpret(p_pool, SJF);
     qsort(p_pool, num_process, sizeof(Process), compare);
     for (i = 0; i < num_process; i++) {
         if (i > 0){

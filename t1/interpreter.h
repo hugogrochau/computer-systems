@@ -12,4 +12,4 @@ typedef struct process_s {
 	double time;
 } Process;
 
-int interpret (Process *p_pool, int type, FILE* in);
+int interpret (Process *p_pool, int type);
